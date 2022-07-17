@@ -21,28 +21,28 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             Learning_AndroidTheme {
-                Box(modifier = Modifier.background(Color(color.value)).fillMaxSize())
+                Box(
+                    modifier = Modifier
+                        .background(Color(color.value))
+                        .fillMaxSize()
+                )
             }
         }
 
 
-        val job = GlobalScope.launch (Dispatchers.IO){
-            repeat(5){
-                write("still running...")
-                delay(1000L)
-            }
-        }
 
-        runBlocking {
-            delay(2000L)
-            job.cancel()
-            write("DONE")
-        }
 
     }
 
-    fun write(s: String){
+    fun write(s: String) {
         Log.d("HELLO_TESTING", s)
+    }
+
+    fun fab(n: Int): Int{
+        write(n.toString())
+        return if (n == 0) 0
+        else if (n == 1) 1
+        else fab(n - 1) + fab(n-2)
     }
 
 }
