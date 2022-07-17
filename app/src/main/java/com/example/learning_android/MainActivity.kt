@@ -29,17 +29,26 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+        val job = GlobalScope.launch {
+            if(isActive){
+                fab(40)
+            }
+        }
 
-
+        runBlocking {
+            delay(2000L)
+            job.cancel()
+            write(tag = "DOOONE",s = "job doneeeeeee")
+        }
 
     }
 
-    fun write(s: String) {
-        Log.d("HELLO_TESTING", s)
+    fun write(tag: String = "HELLO_TESTING",s: String) {
+        Log.d(tag, s)
     }
 
     fun fab(n: Int): Int{
-        write(n.toString())
+        write(s = n.toString())
         return if (n == 0) 0
         else if (n == 1) 1
         else fab(n - 1) + fab(n-2)
