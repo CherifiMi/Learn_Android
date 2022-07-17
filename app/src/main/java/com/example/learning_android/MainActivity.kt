@@ -1,6 +1,7 @@
 package com.example.learning_android
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
@@ -24,20 +25,42 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-            for (i in 1..100000000){
-                color.value = changeColor(color.value)
-                delay(10)
+        var x = 0
+
+        GlobalScope.launch (Dispatchers.Main){
+            launch {
+                for (i in 1..10){
+                    x =+ i
+                    Log.d("HILLO","111  " + x.toString())
+                    delay(1000L)
+                }
+
+            }
+            launch {
+                for (i in 1..10){
+                    x =+ i
+                    Log.d("HILLO", "222  " +x.toString())
+                }
+            }
+            launch {
+                for (i in 1..10){
+                    x =+ i
+                    Log.d("HILLO", "333  " +x.toString())
+                }
+            }
+            launch {
+                for (i in 1..10){
+                    x =+ i
+                    Log.d("HILLO", "444  " +x.toString())
+                }
             }
         }
 
-    }
-
-    fun changeColor(value: Long): Long {
-
-        return value-1
+        Log.d("HILLO", x.toString())
 
     }
+
+
 
 }
 
