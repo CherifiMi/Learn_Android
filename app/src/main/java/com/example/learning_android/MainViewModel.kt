@@ -5,9 +5,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 
-class MainViewModel(
+class MainViewModel()
+    : ViewModel() {
 
-) : ViewModel() {
+        val coundDownFlow = flow {
+
+            val startval = 100
+
+            var nowval = startval
+            emit(startval)
+            while(nowval>0){
+                delay(1000L)
+                nowval --
+                emit(nowval)
+            }
+
+        }
 
 }
