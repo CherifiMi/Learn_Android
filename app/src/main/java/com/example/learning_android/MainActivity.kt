@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.learning_android.ui.theme.Learning_AndroidTheme
 import kotlinx.coroutines.*
+import kotlin.system.measureNanoTime
+import kotlin.system.measureTimeMillis
 
 class MainActivity : ComponentActivity() {
 
@@ -29,28 +31,36 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        write(s = "job doneeeeeee")
-
         GlobalScope.launch{
-            withTimeout(2000L){
-                write(s = fab(40).toString())
+
+            val time = measureTimeMillis {
+                val an1 = netCall()
+                write(an1)
+                val an2 = netCall2()
+                write(an2)
             }
-            write(s = "job doneeeeeee")
+            write(time.toString())
+
         }
 
 
 
     }
 
-    fun write(tag: String = "HELLO_TESTING",s: String) {
+    suspend fun netCall(): String{
+        delay(3000L)
+        return "YOU GOT MAIL ..."
+    }
+    suspend fun netCall2(): String{
+        delay(3000L)
+        return "YOU GOT MAIL 2 ..."
+    }
+
+    fun write(s: String, tag: String = "HELLO_TESTING") {
         Log.d(tag, s)
     }
 
-    fun fab(n: Int): Int{
-        return if (n == 0) 0
-        else if (n == 1) 1
-        else fab(n - 1) + fab(n-2)
-    }
+
 
 }
 
