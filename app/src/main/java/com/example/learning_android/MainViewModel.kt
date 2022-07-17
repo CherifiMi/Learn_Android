@@ -33,15 +33,15 @@ class MainViewModel() : ViewModel() {
 
     private fun collectFlow() {
         viewModelScope.launch {
-            countDownFlow
+            val count = countDownFlow
                 .filter {
                     it%2 == 0
                 }
                 .map {
                     it*it
                 }
-                .collect{
-                    Log.d("TEST", it.toString())
+                .count {
+                    it % 2 == 0
                 }
         }
     }
