@@ -5,8 +5,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 
 class MainViewModel() : ViewModel() {
 
@@ -36,5 +38,18 @@ class MainViewModel() : ViewModel() {
             emit(nowval)
         }
 
+    }
+
+    init {
+        collectFlow()
+    }
+
+    private fun collectFlow(){
+        viewModelScope.launch {
+            countUpFlow.collect{
+                time->
+                println("the time is  " + time.toString())
+            }
+        }
     }
 }
