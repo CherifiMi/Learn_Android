@@ -31,13 +31,18 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+
         GlobalScope.launch{
 
             val time = measureTimeMillis {
-                val an1 = netCall()
-                write(an1)
-                val an2 = netCall2()
-                write(an2)
+                var a1: String? = null
+                var a2: String? = null
+
+                val job1 = launch { a1 = netCall() }
+                val job2 = launch { a2 = netCall2() }
+
+                job1.join()
+                job2.join()
             }
             write(time.toString())
 
