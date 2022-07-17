@@ -7,6 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 
@@ -46,8 +47,8 @@ class MainViewModel() : ViewModel() {
 
     private fun collectFlow(){
         viewModelScope.launch {
-            countUpFlow.collect{
-                time->
+            countUpFlow.collectLatest{time->
+                delay(2000L)
                 println("the time is  " + time.toString())
             }
         }
