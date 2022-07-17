@@ -1,5 +1,6 @@
 package com.example.learning_android
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,8 +8,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class MainViewModel() : ViewModel() {
@@ -27,30 +27,23 @@ class MainViewModel() : ViewModel() {
 
     }
 
-    val countUpFlow = flow {
-
-        val startval = 0
-
-        var nowval = startval
-        emit(startval)
-        while (true) {
-            delay(1000L)
-            nowval++
-            emit(nowval)
-        }
-
-    }
-
     init {
         collectFlow()
     }
 
-    private fun collectFlow(){
+    private fun collectFlow() {
         viewModelScope.launch {
-            countUpFlow.collectLatest{time->
-                delay(2000L)
-                println("the time is  " + time.toString())
-            }
+            countDownFlow
+                .filter {
+                    it%2 == 0
+                }
+                .map {
+                    it*it
+                }
+                .collect{
+                    Log.d("TEST", it.toString())
+                }
         }
     }
+
 }
