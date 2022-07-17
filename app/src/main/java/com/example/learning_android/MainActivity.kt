@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.learning_android.ui.theme.Learning_AndroidTheme
 import kotlinx.coroutines.*
+import java.lang.Exception
 import kotlin.system.measureNanoTime
 import kotlin.system.measureTimeMillis
 
@@ -32,21 +33,26 @@ class MainActivity : ComponentActivity() {
         }
 
 
-        GlobalScope.launch{
+        val ar = arrayOf(0, 23, 0)
+
+        try {
+            ar[3]
+        }catch (e: Exception){
+            write(e.toString())
+        }
+
+        /*val job = GlobalScope.launch{
 
             val time = measureTimeMillis {
-                var a1: String? = null
-                var a2: String? = null
+                val a1 = async { netCall() }
+                val a2 = async { netCall2() }
 
-                val job1 = launch { a1 = netCall() }
-                val job2 = launch { a2 = netCall2() }
-
-                job1.join()
-                job2.join()
+                write(a1.await())
+                write(a2.await())
             }
             write(time.toString())
 
-        }
+        }*/
 
 
 
@@ -57,7 +63,7 @@ class MainActivity : ComponentActivity() {
         return "YOU GOT MAIL ..."
     }
     suspend fun netCall2(): String{
-        delay(3000L)
+        delay(6000L)
         return "YOU GOT MAIL 2 ..."
     }
 
