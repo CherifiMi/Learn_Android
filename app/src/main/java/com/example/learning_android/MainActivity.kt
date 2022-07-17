@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun App() {
         
-        val time = viewModel.coundDownFlow.collectAsState(initial = 10)
+        val time = viewModel.countUpFlow.collectAsState(initial = 0)
         
         Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center){
             Text(

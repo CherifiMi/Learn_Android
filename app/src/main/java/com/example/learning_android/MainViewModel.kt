@@ -8,21 +8,33 @@ import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 
-class MainViewModel()
-    : ViewModel() {
+class MainViewModel() : ViewModel() {
 
-        val coundDownFlow = flow {
+    val countDownFlow = flow {
 
-            val startval = 100
+        val startval = 100
 
-            var nowval = startval
-            emit(startval)
-            while(nowval>0){
-                delay(1000L)
-                nowval --
-                emit(nowval)
-            }
-
+        var nowval = startval
+        emit(startval)
+        while (nowval > 0) {
+            delay(1000L)
+            nowval--
+            emit(nowval)
         }
 
+    }
+
+    val countUpFlow = flow {
+
+        val startval = 0
+
+        var nowval = startval
+        emit(startval)
+        while (true) {
+            delay(1000L)
+            nowval++
+            emit(nowval)
+        }
+
+    }
 }
