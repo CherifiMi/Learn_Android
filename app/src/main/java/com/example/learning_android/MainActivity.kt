@@ -25,42 +25,25 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        var x = 0
 
-        GlobalScope.launch (Dispatchers.Main){
-            launch {
-                for (i in 1..10){
-                    x =+ i
-                    Log.d("HILLO","111  " + x.toString())
-                    delay(1000L)
-                }
-
-            }
-            launch {
-                for (i in 1..10){
-                    x =+ i
-                    Log.d("HILLO", "222  " +x.toString())
-                }
-            }
-            launch {
-                for (i in 1..10){
-                    x =+ i
-                    Log.d("HILLO", "333  " +x.toString())
-                }
-            }
-            launch {
-                for (i in 1..10){
-                    x =+ i
-                    Log.d("HILLO", "444  " +x.toString())
-                }
+        val job = GlobalScope.launch (Dispatchers.IO){
+            repeat(5){
+                write("still running...")
+                delay(1000L)
             }
         }
 
-        Log.d("HILLO", x.toString())
+        runBlocking {
+            delay(2000L)
+            job.cancel()
+            write("DONE")
+        }
 
     }
 
-
+    fun write(s: String){
+        Log.d("HELLO_TESTING", s)
+    }
 
 }
 
