@@ -7,13 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 
 class MainViewModel(
-    private val savedStateHandle: SavedStateHandle
-) : ViewModel() {
-    var num: Int by mutableStateOf(savedStateHandle.get("num") ?: 0)
-        private set
 
-    fun numup() {
-        num++
-        savedStateHandle.set("num", num)
-    }
+) : ViewModel() {
+
 }
