@@ -43,6 +43,8 @@ class MainViewModel() : ViewModel() {
                 .count {
                     it % 2 == 0
                 }
+
+            println("count is " + count)
         }
     }
 
